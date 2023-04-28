@@ -1,14 +1,23 @@
-import { StyledInputContainer } from '../../../styles/form';
-import { StyledParagraph } from '../../../styles/typography';
+import React, { InputHTMLAttributes } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
-const Input = ({ id }) => (
+import { StyledInputContainer } from "../../../styles/form";
+import { StyledParagraph } from "../../../styles/typography";
+
+interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  error?: string;
+  type: string;
+  register: UseFormRegisterReturn;
+}
+
+const Input = ({ label, error, register, type }: IInputProps) => (
   <div>
     <StyledInputContainer>
-      <input type='text' id={id} placeholder=' ' />
-      <label htmlFor={id}>Teste</label>
+      <input {...register} type={type} />
+      {label ? <label>{label}</label> : null}
     </StyledInputContainer>
-    <StyledParagraph fontColor='red'>Erro</StyledParagraph>
+    <StyledParagraph fontColor="red">{error}</StyledParagraph>
   </div>
 );
-
 export default Input;
